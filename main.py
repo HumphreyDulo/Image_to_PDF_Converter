@@ -53,8 +53,14 @@ class ImageToPdf:
             if not self.image_paths:
                return
 
-            output_pdf_path = self.output_pdf_name.get() + ".pdf" if self.output_pdf_name.get() \
-            else "generatedResult.pdf"
+            output_pdf_path = filedialog.asksaveasfilename(
+                defaultextension=".pdf",
+                filetypes=[("PDF files", "*.pdf")],
+                initialdir=os.path.join(os.path.expanduser("~"), "Desktop"),
+                title="Save PDF as"
+            )
+            if not output_pdf_path:
+                return  # user cancelled
 
             pdf = canvas.Canvas(output_pdf_path, pagesize=(612, 792))
 
